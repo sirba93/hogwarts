@@ -4,7 +4,7 @@ const LoadingCover: React.FC = () => {
     return (
         <LoadingCoverDisplay>
             <TextWrapper>
-                ...Loading
+                Accio page!
             </TextWrapper>
         </LoadingCoverDisplay>
     )

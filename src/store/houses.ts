@@ -13,7 +13,7 @@ type HouseState = {
     items: House[]
 }
 
-const initialHouseNames: HouseName[] = ['Slytherin', 'Gryffindor', 'Hufflepuff', 'Ravenclaw']
+const initialHouseNames: HouseName[] = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
 
 const initialState: HouseState = {
     loading: false,

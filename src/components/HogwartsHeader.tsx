@@ -2,17 +2,21 @@ import styled from "styled-components"
 import { useNavigate } from "react-router-dom"
 import { House } from "../store/houses"
 import HousePointsWidget from "./HousePointsWidget"
+import ElderWand from "../icons/elder-wand.png"
 
 type HeaderProps = {
     houses: House[]
 }
 
-const HogwartsHeader: React.FC<HeaderProps> = ({houses}) => {
+const HogwartsHeader: React.FC<HeaderProps> = ({ houses }) => {
     const navigate = useNavigate()
-    
+
     return (
         <HeaderWrapper>
-            <HeaderTitle onClick={() => navigate('/')}>HOGWARTS</HeaderTitle>
+            <WandContainer onClick={() => navigate('/characters')} >
+                <WandImageWrapper src={ElderWand} />
+            </WandContainer>
+            <HeaderTitle onClick={() => navigate('/')}>Hogwarts</HeaderTitle>
             <HousePointsWidget houses={houses} />
         </HeaderWrapper>
     )
@@ -20,12 +24,24 @@ const HogwartsHeader: React.FC<HeaderProps> = ({houses}) => {
 
 export default HogwartsHeader
 
+const WandImageWrapper = styled.img`
+ width: 3rem;
+ height: 3rem;
+`
+
+const WandContainer = styled.div`
+ margin-left: 1rem;
+ &:hover {
+    cursor: pointer;
+ }
+`
+
 const HeaderTitle = styled.div`
- font-size: clamp(1rem, 4vw, 5rem);
+ font-size: clamp(1rem, 6vw, 7rem);
  color: black;
  align-self: center;
  padding: 1rem;
- font-family: Telugu MN;
+ font-family: ParryHotter;
  text-transform: capitalize;
  font-weight: 900;
  &:hover {
@@ -40,4 +56,5 @@ const HeaderWrapper = styled.div`
  padding: 1rem 0rem 1rem 0rem;
  width: 100%;
  background-color: whitesmoke;
+ align-items: center;
 `

@@ -2,10 +2,11 @@ import { useState } from "react"
 import styled from "styled-components"
 import { motion } from "framer-motion"
 import { House, HouseName, updateHousePoints } from "../store/houses"
-import Scrollbars from "rc-scrollbars"
 import HouseCard from "./HouseCard"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "../store"
+import HogwartsBanners from "../icons/HogwartsBanners"
+import HogwartsLogo from "../icons/hogwarts-logo.png"
 
 const animations = {
     open: {
@@ -46,9 +47,13 @@ const HousePointsWidget: React.FC<HousePointsWidgetProps> = ({ houses }) => {
 
     const dispatch = useDispatch<AppDispatch>()
 
-    async function updateSelectedHousePoints(houseName: HouseName) {
+    async function updateSelectedHousePoints(houseName: HouseName, points: number) {
 
-        let housesToUpdate = { ...houses }
+        let foundHouse = houses.find((house) => house.houseName === houseName) as House
+
+        foundHouse = {houseName: foundHouse.houseName, points: foundHouse.points + points}
+
+        const housesToUpdate = houses.map((house) => house.houseName !== houseName ? house : foundHouse)
 
         await dispatch((updateHousePoints(housesToUpdate)))
     }
@@ -56,8 +61,7 @@ const HousePointsWidget: React.FC<HousePointsWidgetProps> = ({ houses }) => {
     return (
         <HousePointsContainer>
             <HouseIconContainer onClick={() => setIsOpen(!isOpen)}>
-                Insert Hogwarts Icon here
-                Houses
+                <HogwartLogoWrapper src={HogwartsLogo} />
             </HouseIconContainer>
             <HouseContainer
                 variants={animations}
@@ -65,12 +69,17 @@ const HousePointsWidget: React.FC<HousePointsWidgetProps> = ({ houses }) => {
                 initial={false}
                 animate={isOpen ? 'open' : 'closed'}
             >
-                {houses?.map((house) => (
-                    <HouseCard
-                        updateHousePoints={(houseName) => updateSelectedHousePoints(houseName)}
-                        key={house.houseName}
-                        house={house} />
-                ))}
+                <BannerContainer>
+                    <HogwartsBanners />
+                </BannerContainer>
+                <HouseCardWrapper>
+                    {houses?.map((house) => (
+                        <HouseCard
+                            updateHousePoints={(houseName, points) => updateSelectedHousePoints(houseName, points)}
+                            key={house.houseName}
+                            house={house} />
+                    ))}
+                </HouseCardWrapper>
             </HouseContainer>
         </HousePointsContainer>
     )
@@ -78,6 +87,22 @@ const HousePointsWidget: React.FC<HousePointsWidgetProps> = ({ houses }) => {
 }
 
 export default HousePointsWidget
+
+const HogwartLogoWrapper = styled.img`
+ width: 3rem;
+ height: 3rem;
+`
+
+const HouseCardWrapper = styled.div`
+ display: flex;
+ flex-direction: row;
+`
+
+const BannerContainer = styled.div`
+ display: flex;
+ width: 40rem;
+ height: 40rem;
+`
 
 const HousePointsContainer = styled.div`
  display: flex;
@@ -87,11 +112,7 @@ const HousePointsContainer = styled.div`
 `
 
 const HouseIconContainer = styled.div`
- width: 3rem;
- height: 4rem;
- padding: 1rem 0rem 1rem 1rem;
- font-size: 1rem;
- color: black;
+ margin-right: 1rem;
  &:hover {
     cursor: pointer;
  }
@@ -101,12 +122,11 @@ const HouseContainer = styled(motion.div)`
  top: calc(100% + 2rem);
  position: absolute;
  background-color: white;
- box-shadow: 0 2px 2px 0 rgba(77,77,79,0.08),0 0 2px 0 rgba(77,77,79,0.16);
+ box-shadow: 0 10px 10px 0 rgba(77,77,79,0.08),0 0 10px 0 rgba(77,77,79,0.16);
  border-radius: 1rem;
- border: 0.1rem solid grey;
  right: 0;
  display: flex;
- flex-direction: row;
+ flex-direction: column;
  overflow: hidden;
  height: 40rem;
  z-index: 100;

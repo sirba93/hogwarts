@@ -74,9 +74,9 @@ const SlideContainer = styled.div`
  font-size: 3rem;
 `
 
-const SlideWrapper = styled.li`
+const SlideWrapper = styled.li` 
   color: black;
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding-bottom: 0.5rem;
 `
 

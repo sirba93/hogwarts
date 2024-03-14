@@ -16,7 +16,7 @@ const HogwartsHeader: React.FC<HeaderProps> = ({ houses }) => {
             <WandContainer onClick={() => navigate('/characters')} >
                 <WandImageWrapper src={ElderWand} />
             </WandContainer>
-            <HeaderTitle onClick={() => navigate('/')}>Hogwarts</HeaderTitle>
+            <SomText onClick={() => navigate('/')}>Hogwarts</SomText>
             <HousePointsWidget houses={houses} />
         </HeaderWrapper>
     )
@@ -36,8 +36,8 @@ const WandContainer = styled.div`
  }
 `
 
-const HeaderTitle = styled.div`
- font-size: clamp(1rem, 6vw, 7rem);
+const SomText = styled.div`
+ font-size: clamp(1rem, 5vw, 7rem);
  color: black;
  align-self: center;
  padding: 1rem;

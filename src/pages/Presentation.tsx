@@ -6,6 +6,17 @@ import HogwartsHeader from "../components/HogwartsHeader"
 import { motion } from "framer-motion"
 import CloakLeft from "../icons/CloakLeft"
 import CloakRight from "../icons/CloakRight"
+import Subashker from "../pictures/SubashkerMoodley.jpg"
+import BeginningEndMeme from "../pictures/beginning-end-meme.jpg"
+import PointsMeme from "../pictures/points-meme.jpg"
+import NodeEnvMeme from "../pictures/node-environment-meme.jpg"
+import ReactAngularMeme from "../pictures/react-angular-learning-curve-meme.jpeg"
+import SemiColonMeme from "../pictures/semi-colon-meme.webp"
+import JSXMeme from "../pictures/jsx-meme.jpg"
+import CSSMeme from "../pictures/css-meme.png"
+import TriggerRenderCommit from "../pictures/trigger-render-commit.png"
+import StateUpdateRender from "../pictures/stateupdate-triggers-render.png"
+import MutateStateMeme from "../pictures/mutate-state-meme.png"
 
 const Presentation: React.FC = ({ }) => {
 
@@ -20,12 +31,26 @@ const Presentation: React.FC = ({ }) => {
     }, [])
 
     const slideInfoArray: string[][] = [
-        ["About Me", "I like playing games", "I like making my own games", "I love tech", "I started at IQ in 2021 with BasIQs", "I learnt React/Typescript on my first project (Multigate)", "Staying active, hiking, gym, movies, piano, coffee"],
-        ["React", "Javascript library for web and native interfaces", "Developed by the Zuck (meta)", "Can be used with frameworks", "React offers flexibility, concerned with rendering the UI", "Can leverage other libraries and tools", "Can be quickly incorporated into other projects", "Learning curve is pretty low", "Efficient", "Native support for both iOS and Android"],
-        ["React Continued", "There are limitations", "Manual integration for several components", "Libraries are specialised", "Larger projects lack conformity that frameworks provide"],
-        ["POINTS", "Earn points for your house:", "Spot improvements to styling, function, performance, etc"],
-        ["React Basics", "Routing", "APIs", "State management", "Hooks - custom and built-in", "tsx/jsx", "Semantic HTML, styled components, and CSS", "Conditional rendering (?, &&)", "Controlled/uncontrolled components"],
-        ["Practical"]
+        ["The Magic of React", "By Subashker Moodley", Subashker],
+        ["About Me", "I like playing games", "I like making my own games", "I love tech", "Staying active, hiking, gym, movies, piano, coffee", "I started at IQ in 2021 with BasIQs", "I learnt React and Typescript on my first project (Multigate)"],
+        ["This is me at Multigate", BeginningEndMeme],
+        ["What is React?", "Javascript/Typescript UI library for web and native interfaces", "Developed by Meta/Facebook", "Can be used with frameworks (Next.js, Remix, Gatsby, Expo)", "Native support for both iOS and Android", "Components represent logical re-usable parts of the UI"],
+        ["What is Typescript?", SemiColonMeme],
+        ["What is Typescript", "Strongly typed syntactic superset of Javascript", "Transpiles to Javascript", "In-line type annotations", "Compiler reports errors at compile time, not run time", "Advantages of an OOP"],
+        ["React Pros", "React offers flexibility, concerned only with rendering the UI", "Can leverage other libraries and tools - freedom of choice", "Learning curve is pretty low", "Time efficient - fast and... Reactive", "Space efficient", "Easily incorporated into other projects - npm install react react-dom"],
+        ["React Pros", NodeEnvMeme],
+        ["React Cons", "Manual integration for several components", "Frameworks have pre-built tools and processes", "Frameworks have robust ecosystems", "Frameworks have pre-determined design patterns", "Larger projects lack conformity that frameworks provide"],
+        ["React Cons", ReactAngularMeme],
+        ["POINTS", "Spot improvements to styling, function, performance, etc", PointsMeme],
+        ["React Basics", "Folder structure", "Routing", "tsx/jsx"],
+        ["React Basics", JSXMeme],
+        ["React Basics Continued", "State management", TriggerRenderCommit, StateUpdateRender],
+        ["React Basics Continued", "Hooks - custom and built-in", MutateStateMeme],
+        ["React Basics Continued", "Semantic HTML, styled components, and CSS", "Conditional rendering (?, &&)", CSSMeme],
+        ["Practical", "Create a page", "Use the spells hook to fetch spells", "Return HTML", "Bonus points for styling", "Display spell info"],
+        ["QA"],
+        ["Thank you, Masterclass Committee!"],
+        ["THE END"]
     ]
 
     return (
@@ -37,29 +62,33 @@ const Presentation: React.FC = ({ }) => {
                 houses={houses}
             />
             <PresentationContainer>
-                <ArrowContainer onClick={() =>
+                <ItClicksIGuess onClick={() =>
                     setSlideNumber(slideNumber - 1)}
                     disabled={slideNumber === 0}
                 >
                     <CloakLeft />
-                </ArrowContainer>
+                </ItClicksIGuess>
                 <SlideContainer>
                     {slideInfoArray[slideNumber].map((slide, index) => (
                         index === 0 ? (
                             slide
                         ) : (
-                            <SlideWrapper key={slide}>
-                                {slide}
-                            </SlideWrapper>
+                            slide.includes("media") ? (
+                                <PictureWrapper src={slide} />
+                            ) : (
+                                <SlideWrapper key={slide}>
+                                    {slide}
+                                </SlideWrapper>
+                            )
                         )
                     ))}
                 </SlideContainer>
-                <ArrowContainer onClick={() =>
+                <ItClicksIGuess onClick={() =>
                     setSlideNumber(slideNumber + 1)}
                     disabled={slideNumber === slideInfoArray.length - 1}
                 >
                     <CloakRight />
-                </ArrowContainer>
+                </ItClicksIGuess>
             </PresentationContainer>
         </>
     )
@@ -77,10 +106,17 @@ const SlideContainer = styled.div`
 const SlideWrapper = styled.li` 
   color: black;
   font-size: 1.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.8rem;
 `
 
-const ArrowContainer = styled.div<{ disabled: boolean }>`
+export const PictureWrapper = styled.img`
+ padding-top: 0.8rem;
+ max-width: 80%;
+ max-height: 80%;
+ align-self: center;
+`
+
+const ItClicksIGuess = styled.div<{ disabled: boolean }>`
  display: flex;
  width: 2rem;
  height: 2rem;
